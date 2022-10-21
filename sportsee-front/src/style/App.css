@@ -1,0 +1,145 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.border_radar {
+  border-radius: 1rem;
+  background-color: #282D30;
+  width: fit-content;
+}
+.border_line {
+  border-radius: 1rem;
+  background-color: #E60000;
+  width: fit-content;
+  overflow: visible;
+
+}
+.recharts-wrapper {
+ overflow: visible;
+}
+
+.border_softblue {
+  border-radius: 1rem;
+  background-color: #FBFBFB;
+  width: fit-content;
+}
+.chartbar_container {
+  display: flex;
+  gap: 1.6rem;
+}
+.custom-tooltip {
+  background-color: #E60000;
+  height: 63px;
+  font-size: 12px;
+  color: #FFFF;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+}
+.legend_container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.title {
+  font-size: 20px;
+  font-weight: 600;
+}
+.title_session {
+ width: 70%;
+ color: #FFFFFF;
+ font-size: 15px;
+ font-weight: 600;
+ opacity: 0.5;
+ margin-bottom: -10rem;
+}
+.title_average {
+ stroke-width: "30rem";  
+    stroke:"black";
+    opacity:0.3;
+    background: green;
+
+}
+.title_session {
+ width: 70%;
+ color: #FFFFFF;
+ font-size: 15px;
+ font-weight: 600;
+ opacity: 0.5;
+ margin-bottom: -10rem;
+
+}
+.tooltip-session {
+  width: 3rem;
+  color: #E60000;
+  font-size: 12px;
+  text-align: center;
+  align-items: center;
+  background-color: #FFFF;
+}
+.chartbar_container {
+width: 835px;
+height: 320px;
+padding-top: 3rem;
+}
+svg {
+  overflow: visible;
+}
+.recharts-tooltip-cursor {
+  height: 40rem;
+}
+.recharts-curve {
+  height: 40rem !important;
+  width: 40rem !important;
+}
+.recharts-tooltip-wrapper {
+  height: 100rem;
+}
+.recharts-tooltip-wrapper-right {
+  height: 100rem;
+}
+.container {
+  display: flex;
+}
+.svg_container {
+ width: 100%;
+ display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+.bar{
+  fill: red;
+}
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
