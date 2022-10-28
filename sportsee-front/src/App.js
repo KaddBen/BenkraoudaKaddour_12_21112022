@@ -1,5 +1,5 @@
 import React, { StrictMode } from "react";
-
+import { logo } from './assets/logo.png'
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Home from './pages/Home/Home.js'
 import Performances from './pages/Performances/Performances.js'
@@ -18,6 +18,7 @@ import ChartRadar from "./components/RadarChart/RadarChart.js";
 import RadialBar from "./components/RadialBar/RadialBar.js";
 
 import VerticalLayout from "./components/VerticalLayout/VerticalLayout.js";
+import Main from "./pages/Main/Main.js";
 function App() {
 
 
@@ -54,22 +55,20 @@ const renderAverage = () => {
 }
  return(
 
-<div >
-  <Header/>
-  <div  className="container">
-  <VerticalLayout />
-  <div className="svg_container"> 
-<div className="chartbar_conntainer">
-<ChartBar />
-</div>
-<div className="chart_container">
-<ChartLine />
-<ChartRadar />
-<RadialBar />
-</div>
-</div>
-</div>
-</div>
+
+<BrowserRouter>
+<Routes>
+     <Route>
+      <Route path='/'  element={<Home />} />
+      <Route path='/main/:userId' element={<Main />} />
+      <Route path='/performances/:userId' element={<Performances/>} />
+      <Route path='/average-sessions/:userId' element={<Session />} />
+      <Route path='/activity/:userId' element={<Activity />} />  
+      <Route path='*' element={<Error />} />
+      </Route> 
+     </Routes>
+    </BrowserRouter>
+
  );
 }
 

@@ -29,6 +29,11 @@
   width: fit-content;
 }
 .chartbar_container {
+  width: 835px;
+  height: 320px;
+  padding-top: 3rem;
+}
+.chart_container {
   display: flex;
   gap: 1.6rem;
 }
@@ -85,6 +90,26 @@
 width: 835px;
 height: 320px;
 padding-top: 3rem;
+}
+
+.info_radial {
+  position: absolute;
+font-size: 1.5rem;
+font-weight: 700;
+ text-align: center;
+ margin-top: 50px;
+ margin-left: 60px;
+ width:70px;
+}
+
+.info_radial span {
+  color: #666;
+  font-size: 16px;
+}
+.score {
+  font-weight: 600;
+  font-size: 16px;
+  color:#282c34
 }
 svg {
   overflow: visible;

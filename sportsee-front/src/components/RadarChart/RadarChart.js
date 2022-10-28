@@ -1,7 +1,7 @@
 import React from "react";
 import data from '../../data/data' 
 import {PolarGrid,PolarAngleAxis,Radar,RadarChart} from "recharts"
-
+import ApiCall from '../../ApiCall/ApiCall'
 const kindValue1 = []
 let kindValue2 = []
 const kindValue = []

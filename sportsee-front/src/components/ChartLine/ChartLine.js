@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import {LineChart,XAxis,YAxis,Line,Legend,Tooltip} from "recharts"
 import data from '../../data/data' 
+import ApiCall from '../../ApiCall/ApiCall'
 import  '../../style/App.css';
 const ChartLine = () => {
-  const renderLeg = () => {
-    return (
-     <div className="title_session">
-      Durée moyenne des sessions
-      </div>
-    );
-  }
+ const [mouseCoords, setMouseCoords] = useState({x:0, y : 0 });
+
+ const renderLeg = () => {
+  return (
+   <div className="title_session">
+    Durée moyenne des sessions
+    </div>
+  );
+}
   const TooltipSession = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
@@ -19,8 +22,17 @@ const ChartLine = () => {
       );
     }
   }
-    return(
-<LineChart width={258} height={263} data={data.USER_AVERAGE_SESSIONS[0].sessions}
+
+  const api = new ApiCall()
+
+ console.log(apiCall)
+ const [userData, setUserData] = useState(null)
+ let apiCall = api.averageSession().then(data => setUserData(data))
+ 
+//useEffect(apiCall, [])
+
+ return  (
+<LineChart width={258} height={263} data={userData}
    className="border_line" onMouseMove={(e) => {
     if (e.isTooltipActive === true) {
       let div = document.querySelector('.border_line')
@@ -28,6 +40,7 @@ const ChartLine = () => {
       let mouseXpercentage = Math.round(
         (e.activeCoordinate.x/windowWidth)*100
       )
+      setMouseCoords({ x: e.chartX, y:e.chartY });
       div.style.background = `linear-gradient(90deg,rgba(255,0,0,1) ${mouseXpercentage}%,
       rgba(175,0,0,1.5)${mouseXpercentage}%,rgba(175,0,0,1.5) 100%)`
     }
@@ -40,9 +53,13 @@ const ChartLine = () => {
                             strokeWidth: 10,
                             r: 5,
                             }} />
-                            <Tooltip content={<TooltipSession />} wrapperStyle={{ outline: "none",top:100}} />
+                            <Tooltip content={<TooltipSession />} wrapperStyle={{ outline: "none"}} position={mouseCoords} />
 </LineChart>
+      
+  
     )
+    
+                                                 
 }
 export default ChartLine;
 
