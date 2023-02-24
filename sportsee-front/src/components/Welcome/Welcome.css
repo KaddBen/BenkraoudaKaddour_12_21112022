@@ -1,0 +1,16 @@
+.userName {
+  position: absolute;
+
+  left: 0;
+}
+.userName h2 {
+  font-size: 3rem;
+  margin-bottom: unset !important;
+}
+.userName span {
+  font-size: 3rem;
+  color: #e60000;
+}
+.clap {
+  font-size: 1rem !important;
+}

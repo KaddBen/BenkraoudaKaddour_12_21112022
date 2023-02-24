@@ -1,0 +1,41 @@
+.legend_container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem; 
+  }
+.title {
+    font-size: 20px;
+    font-weight: 600;
+  }
+.chartbar_container {
+    width: 835px;
+    height: 320px;
+    padding-top: 3rem;
+    }
+    .border_softblue {
+      border-radius: 1rem;
+      background-color: #FBFBFB;
+      width: fit-content;
+      padding-top: 0rem;
+    
+    }
+    .chartbar_container {
+      width: 835px ;
+      height: 420px !important;
+      ;
+      margin-top: 10rem;
+    }
+    .chart_container {
+      display: flex;
+      gap: 1.6rem;
+    }
+    .custom-tooltip {
+      background-color: #E60000;
+      height: 63px;
+      font-size: 12px;
+      color: #FFFF;
+      padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    }
+    

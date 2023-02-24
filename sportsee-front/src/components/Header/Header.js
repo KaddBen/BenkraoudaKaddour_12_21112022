@@ -3,9 +3,9 @@ import logo from "../../assets/logo.png"
 import './Header.css'
 const Header = () => {
     return(
-<h1 class="header">
+<h1 className="header">
 
-<img src={logo}></img>
+<img src={logo} alt="logo"></img>
        
 <span>Acceuil</span>
 <span>Profil</span>

@@ -1,22 +1,20 @@
 import React from "react";
-import './VerticalLayout.css'
-import bike from '../../assets/bike.png'
-import swim from '../../assets/swim.png'
-import weight from '../../assets/weight.png'
-import yoga from '../../assets/yoga.png'
+import "./VerticalLayout.css";
+import bike from "../../assets/bike.png";
+import swim from "../../assets/swim.png";
+import weight from "../../assets/weight.png";
+import yoga from "../../assets/yoga.png";
 
 const VerticalLayout = () => {
+  return (
+    <div className="VerticalLayout">
+      <img src={yoga} alt="yoga"></img>
+      <img src={swim} alt="swim"></img>
+      <img src={bike} alt="bike"></img>
+      <img src={weight} alt="weight"></img>
 
-    return(
-<div class="VerticalLayout">       
-<img src ={yoga}></img>
-<img src ={swim}></img>
-<img src ={bike}></img>
-<img src ={weight}></img>
-
-<div>Copyright,Sportsee 2020</div>
-</div>
-    )
-
-}
+      <div className="copyright">Copyright,Sportsee 2020</div>
+    </div>
+  );
+};
 export default VerticalLayout;

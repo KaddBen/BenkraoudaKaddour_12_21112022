@@ -1,5 +1,9 @@
 {
   "dependencies": {
-    "recharts": "^2.1.14"
+    "recharts": "^2.1.14",
+    "webfontloader": "^1.6.28"
+  },
+  "devDependencies": {
+    "webpack": "^5.74.0"
   }
 }

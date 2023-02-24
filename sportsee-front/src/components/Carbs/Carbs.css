@@ -1,0 +1,66 @@
+/* test div concerne les carbs*/
+.global_container {
+  width: 320px;
+  height: 133px;
+  background-color: red;
+  display: flex;
+  align-items: center;
+  border-radius: 0.5rem;
+}
+.unit_container {
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+}
+.icon_container {
+  width: 75px;
+  height: 75px;
+  margin-left: 2rem;
+  border-radius: 0.5rem;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+}
+.data_container {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+}
+.data {
+  width: fit-content;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-top: 0.5rem;
+}
+.unit {
+  width: 100%;
+  color: #74798c;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+/* test div concerne les carbs*/
+.test_div {
+  width: fit-content;
+  margin-top: 13rem;
+  margin-left: 1rem;
+  margin-right: 2rem;
+  height: fit-content;
+  flex-wrap: wrap;
+  display: flex;
+  gap: 3.2rem;
+  flex-direction: column;
+}
+@media screen and (max-width: 1400px) {
+  .test_div {
+    width: 100% !important;
+    margin-top: 3rem;
+    margin-left: unset;
+    height: fit-content;
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    row-gap: 2rem;
+  }
+}

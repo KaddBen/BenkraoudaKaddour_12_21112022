@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+.title_session {
+  width: 70%;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  opacity: 0.5;
+  margin-bottom: -10rem;
+}
+.border_line {
+  border-radius: 1rem;
+  background-color: #e60000;
+  width: fit-content;
+  overflow: visible;
+}
+.tooltip-session {
+  width: 3rem;
+  color: #e60000;
+  font-size: 12px;
+  text-align: center;
+  align-items: center;
+  background-color: #ffff;
+}

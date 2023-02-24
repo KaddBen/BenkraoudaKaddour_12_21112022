@@ -1,57 +1,58 @@
-import React from "react";
-import {RadialBarChart,RadialBar,Legend,PolarAngleAxis} from "recharts"
-import  '../../style/App.css';
-import data from '../../data/data' 
-import ApiCall from '../../ApiCall/ApiCall'
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { RadialBarChart, RadialBar, Legend, PolarAngleAxis } from "recharts";
+import '../../pages/Home/Home.css'
+import ApiCall from "../../ApiCall/ApiCall";
 
 const BarRadial = () => {
-    const test =  [     
-        {          
-            todayScore: 20         
-        }
-      ]
-      const RadialTitle = () => {
-        return (
-         <div className="title_radial">
-          Durée moyenne des sessions
-          </div>
-        );
-      }
-      const RadialInfo = () => {
-        return (
-         <div className="score">
-        
-          Score
-    
-          <div className="info_radial">
-            12% <br></br><span>de votre objectif</span>
-          </div>
-          </div>
-        );
-      }
-    return(
-<RadialBarChart 
-  width={258} 
-  height={263} 
-  innerRadius="70%" 
-  outerRadius="85%" 
-  data={test} 
-  startAngle={90} 
-  endAngle={450}
->
-<Legend  wrapperStyle={{top: 20, left:35}} content={RadialInfo}/>
-<PolarAngleAxis 
-type="number"
-domain={[0,100]}
-dataKey="todayScore"
-angleAxisId={0}
-tick={false}>
+  /* Call the activityData function in the class dedicated to the api 
+   and retrieves the data to be used */
 
-</PolarAngleAxis>
-<RadialBar minAngle={15}  background clockWise={true} dataKey='todayScore' cornerRadius={50} fill="red" />
-</RadialBarChart> 
-    )
-}
+  const api = new ApiCall();
+  const [userData, setUserData] = useState("");
+  const [legend, setLegend] = useState();
+  const { userId } = useParams();
+
+  useEffect(() => {
+    api.userScore(userId).then((data) => setUserData(data));
+    api.userScore(userId).then((data) => setLegend(data[0].todayScore));
+  }, []);
+
+  const RadialInfo = () => {
+    return (
+      <div className="score">
+        Score
+        <div className="info_radial">
+         <div> {legend}%</div><br></br>
+          <span>de votre<br></br>objectif</span>
+        </div>
+      </div>
+    );
+  };
+  return (
+    <RadialBarChart
+      width={258}
+      height={263}
+      innerRadius="70%"
+      outerRadius="83%"
+      data={userData}
+      startAngle={90}
+      endAngle={450}
+    >
+      <Legend wrapperStyle={{ top: 20, left: 35 }} content={RadialInfo} />
+      <PolarAngleAxis
+        type="number"
+        domain={[0, 100]}
+        dataKey="todayScore"
+        angleAxisId={0}
+        tick={false}
+      ></PolarAngleAxis>
+      <RadialBar
+        dataKey="todayScore"
+        cornerRadius={50}
+        fill="red"
+      />
+    </RadialBarChart>
+  );
+};
 export default BarRadial;
-
- 
