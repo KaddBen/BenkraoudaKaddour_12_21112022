@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ApiCall from "../../ApiCall/ApiCall";
 
-
 const Welcome = () => {
   const api = new ApiCall();
   const [userData, setUserData] = useState(null);

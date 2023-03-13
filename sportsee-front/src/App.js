@@ -15,7 +15,6 @@ import "./pages/Home/Home.css";
 import "./pages/Error/Error.css";
 import "./pages/Main/Main.css";
 
-
 function App() {
   return (
     <BrowserRouter>

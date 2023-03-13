@@ -1,0 +1,23 @@
+.error_center h2 {
+    font-size: 6rem;
+    color: red;
+    margin: unset;
+}
+.error_center p {
+    font-size: 1.5rem;
+    color: black;
+  margin-top: 0rem;
+
+}
+.error_center a {
+    font-size: 1.1rem;
+    color: red;
+    margin-top:1rem !important;
+    text-anchor: middle;
+    text-decoration: none;
+}
+.error_center  {
+position: relative;
+text-align: center;
+margin-top: 15rem;
+}

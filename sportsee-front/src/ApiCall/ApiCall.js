@@ -69,23 +69,6 @@ class ApiCall {
     score.push(data);
     return score;
   }
-  //Legend Score a supprimer ?
-  legendScore(userId) {
-    // let { userId } = useParams()
-    let url = `http://localhost:3000/user/${userId}`;
-    let score;
-    async function testing() {
-      let data = {};
-      Object.create(data);
-      let fetchedData = await fetch(url)
-        .then((resp) => resp.json())
-        .then((data) => data);
-      let todayScore = (await fetchedData.data.todayScore) * 100;
-      score = todayScore;
-    }
-    testing();
-    return score;
-  }
 
   /**
    * fetch data concerning the performances of the user : performances value (number)
