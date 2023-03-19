@@ -106,12 +106,16 @@ class ApiCall {
   async getUser(userId) {
     let url = `http://localhost:3000/user/${userId}`;
     let fetch = await this.fetchData(url);
-    let userName = [];
-    let data = {};
-    Object.create(data);
-    data.firstName = await fetch.data.userInfos.firstName;
-    userName.push(data);
-    return userName[0].firstName;
+    if (fetch === "can not get user") {
+      document.location.href = "http://localhost:3001/error";
+    } else {
+      let userName = [];
+      let data = {};
+      Object.create(data);
+      data.firstName = await fetch.data.userInfos.firstName;
+      userName.push(data);
+      return userName[0].firstName;
+    }
   }
 
   /**
@@ -128,7 +132,7 @@ class ApiCall {
     Object.create(data);
 
     // Push the right data (proteins,lipids,etc...) in an array
-    
+
     switch (number) {
       case "1":
         data.carbs = await fetch.data.keyData.calorieCount;
@@ -146,7 +150,7 @@ class ApiCall {
         data.carbs = await fetch.data.keyData.lipidCount;
         Carbs.push(data);
         break;
-        default:
+      default:
     }
     return Carbs[0].carbs;
   }
