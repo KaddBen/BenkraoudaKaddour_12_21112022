@@ -47,7 +47,7 @@ const ChartLine = () => {
       onMouseMove={(e) => {
         if (e.isTooltipActive === true) {
           let div = document.querySelector(".border_line");
-          let windowWidth = div.clientWidth; //largeur du lineChart
+          let windowWidth = div.clientWidth; 
           let mouseXpercentage = Math.round(
             (e.activeCoordinate.x / windowWidth) * 100
           );

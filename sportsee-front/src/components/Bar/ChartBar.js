@@ -91,7 +91,7 @@ const ChartBar = () => {
           dataKey="calories"
           yAxisId="cal"
           type="number"
-          domain={[0, 400]} //a check
+          domain={[0, 400]}
           hide={true}
         />
         <Tooltip
