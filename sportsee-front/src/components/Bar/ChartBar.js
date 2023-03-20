@@ -96,7 +96,7 @@ const ChartBar = () => {
         />
         <Tooltip
           content={<CustomTooltip />}
-          wrapperStyle={{ outline: "none", top: -60, left: 20 }}
+          wrapperStyle={{ outline: "none", top: -60, left: 20, zIndex:3 }}
         />
         <Legend
           iconType="circle"
