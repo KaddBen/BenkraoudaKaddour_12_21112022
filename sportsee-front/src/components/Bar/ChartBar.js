@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ApiCall from "../../ApiCall/ApiCall";
+//import mockApiCall from "../../ApiCall/mockApiCall";
+/*  Uncomment the line above this comment and turn into comment Apicall
+import to switch into mocked version */
 import {
   ResponsiveContainer,
   CartesianGrid,
@@ -31,7 +34,6 @@ const renderLegend = () => {
 // Display the chart bar
 
 const ChartBar = () => {
-
   //Tooltip used to display the infos concerning calories and weight on mouse hover
 
   const CustomTooltip = ({ active, payload }) => {
@@ -49,11 +51,18 @@ const ChartBar = () => {
    and retrieves the data to be used */
 
   const api = new ApiCall();
+  //const api = new mockApiCall();
+  /*  Uncomment the line above this comment and turn into comment the api
+  variable to switch into mocked version */
   const [userData, setUserData] = useState(null);
   const { userId } = useParams();
 
   useEffect(() => {
     api.activityData(userId).then((data) => setUserData(data));
+    //let userData =  api.activityData(userId)
+    //setUserData(userData.sessions)
+    /*  Uncomment the two lines above this comment and turn into comment the first line
+   of the useEffect() to switch into mocked version */
   }, []);
 
   return (
@@ -71,8 +80,6 @@ const ChartBar = () => {
         <CartesianGrid strokeDasharray="3 3" vertical={false} />
         <XAxis dataKey="index" />
 
-   
-
         <YAxis
           /* For the domain attribute,I just substracted or added to the max or min value to have a 
     better grasp of the displayed data */
@@ -83,7 +90,7 @@ const ChartBar = () => {
           tick={{ fontSize: 14, fill: "#74798c" }}
           tickCount={3}
           type="number"
-          domain={["dataMin - 5", "dataMax + 2"]}
+          domain={["dataMin -5", "dataMax + 2"]}
           axisLine={false}
           tickLine={false}
         />
@@ -96,7 +103,7 @@ const ChartBar = () => {
         />
         <Tooltip
           content={<CustomTooltip />}
-          wrapperStyle={{ outline: "none", top: -60, left: 20, zIndex:3 }}
+          wrapperStyle={{ outline: "none", top: -60, left: 20, zIndex: 3 }}
         />
         <Legend
           iconType="circle"

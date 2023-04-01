@@ -85,6 +85,8 @@ class ApiCall {
     let performanceValue = [];
     kindValue.push(fetch.data.kind);
     kindValueObject.push(Object.values(kindValue[0]));
+    console.log(kindValueObject)
+    console.log("object")
     for (let i = 0; i < fetch.data.data.length; i++) {
       const val = fetch.data.data[i];
       let kind = {};

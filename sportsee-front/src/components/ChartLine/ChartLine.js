@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { LineChart, XAxis, YAxis, Line, Legend, Tooltip } from "recharts";
 import ApiCall from "../../ApiCall/ApiCall";
+//import mockApiCall from "../../ApiCall/mockApiCall";
+/*  Uncomment the line above this comment and turn into comment the ApiCall
+import to switch into mocked version */
 import '../../pages/Home/Home.css'
 import { useParams } from "react-router-dom";
 
 // Display the line chart
 const ChartLine = () => {
-  const [mouseCoords, setMouseCoords] = useState({ x: 0, y: 0 });
+const [mouseCoords, setMouseCoords] = useState({ x: 0, y: 0 });
 
   // Custom legend used in the line chart
 
@@ -31,11 +34,18 @@ const ChartLine = () => {
   retrieves the data to be used */
 
   const api = new ApiCall();
+  //const api = new mockApiCall();
+  /*  Uncomment the line above this comment and turn into comment the api variable
+  to switch into mocked version */
   const [userData, setUserData] = useState(null);
   const { userId } = useParams();
 
   useEffect(() => {
     api.averageSession(userId).then((data) => setUserData(data));
+   // let datas = api.averageSession(userId)
+   // setUserData(datas)
+   /*  Uncomment the two lines above this comment and turn into comment the first line
+   of the useEffect() to switch into mocked version */
   }, []);
 
   return (
