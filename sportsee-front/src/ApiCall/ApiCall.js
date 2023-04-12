@@ -1,50 +1,67 @@
+import {
+  USER_MAIN_DATA,
+  USER_ACTIVITY,
+  USER_AVERAGE_SESSIONS,
+  USER_PERFORMANCE,
+} from "../data/data";
+
 class ApiCall {
   constructor() {
     /**
-     * function to fecth data according to an input url
+     * function to fetch data according to an input url
      * @param {String} url
      * @returns {Object}
      */
 
-    this.fetchData = (url) => {
+//Switch the variable below to true in order to use local data instead of fetching api's data
+
+this.mockVersion = false
+
+    this.fetchData = (url) => {     
       let fetchRequest = fetch(url)
         .then((resp) => resp.json())
-        .then((data) => data);
-      return fetchRequest;
-    };
+        .then((data) => data);          
+        return fetchRequest; 
+    }
+
+  
+if (this.mockVersion === true ) {
+  this.fetchData = (id, data) => {
+    const dataUser = data.find(
+      (object) => object.userId === id || object.id === id
+    );
+    return dataUser;
+  }
+
+}
   }
 
   /**
-   * Fetch the data of the daily activity of users
+   * Fetch data of the daily activity of users
    * @param {String} userId
    * @returns {Object[]}
    */
   async activityData(userId) {
     let url = `http://localhost:3000/user/${userId}/activity`;
-    let fetch = await this.fetchData(url);
-    let fetchData = fetch.data.sessions;
-
-    let activityValue = [];
-    let data = {};
-    fetchData.forEach((obj, val) => {
-      Object.create(data);
-      data.index = val + 1;
-      data.kilogram = obj.kilogram;
-      data.calories = obj.calories;
-      activityValue.push(data);
-    });
+    let fetch;
+   (this.mockVersion === false) ? (fetch = await this.fetchData(url)) : (fetch = this.fetchData(parseInt(userId), USER_ACTIVITY));
+   let fetchData; 
+  (this.mockVersion === false) ? (fetchData = fetch.data.sessions) : (fetchData = fetch.sessions);
+   console.log(fetchData)
     return fetchData;
   }
 
   /**
-   * Fetch the data concerning sessions times of the user
+   * Fetch data concerning sessions times of the user
    * @param {String} userId
    * @returns {Object[]}
    */
   async averageSession(userId) {
     let url = `http://localhost:3000/user/${userId}/average-sessions`;
-    let fetch = await this.fetchData(url);
-    let fetchData = fetch.data.sessions;
+    let fetch;
+    (this.mockVersion === false) ? (fetch = await this.fetchData(url)) : (fetch = this.fetchData(parseInt(userId), USER_AVERAGE_SESSIONS));
+    let fetchData;
+   (this.mockVersion === false) ? (fetchData = fetch.data.sessions) : (fetchData = fetch.sessions); 
     return fetchData;
   }
 
@@ -56,16 +73,15 @@ class ApiCall {
    */
 
   async userScore(userId) {
-    // let { userId } = useParams()
     let url = `http://localhost:3000/user/${userId}`;
     let score = [];
-
     let data = {};
     Object.create(data);
-    let fetchedData = await fetch(url)
-      .then((resp) => resp.json())
-      .then((data) => data);
-    data.todayScore = (await fetchedData.data.todayScore) * 100;
+    let fetchData;
+   (this.mockVersion === false) ? fetchData = await fetch(url)
+   .then((resp) => resp.json())
+   .then((data) => data) : (fetchData = this.fetchData(parseInt(userId), USER_MAIN_DATA));
+   (this.mockVersion === false) ? ( data.todayScore = (await fetchData.data.todayScore) * 100) : ( data.todayScore = (await fetchData.todayScore) * 100);
     score.push(data);
     return score;
   }
@@ -79,16 +95,20 @@ class ApiCall {
 
   async userPerformances(userId) {
     let url = `http://localhost:3000/user/${userId}/performance`;
-    let fetch = await this.fetchData(url);
+    let fetch;
+    (this.mockVersion === false) ? (fetch = await this.fetchData(url)) : (fetch= this.fetchData(parseInt(userId), USER_PERFORMANCE));
     let kindValue = [];
     let kindValueObject = [];
     let performanceValue = [];
-    kindValue.push(fetch.data.kind);
+    kindValue.push((fetch.data.kind || fetch.kind));
     kindValueObject.push(Object.values(kindValue[0]));
     console.log(kindValueObject)
     console.log("object")
-    for (let i = 0; i < fetch.data.data.length; i++) {
-      const val = fetch.data.data[i];
+    let dataLength;
+    (this.mockVersion === false) ? (dataLength = fetch.data.data.length) : (dataLength = fetch.data.length);
+    for (let i = 0; i < dataLength; i++) {
+      let val;
+      (this.mockVersion === false) ? (val = fetch.data.data[i]) : (val = fetch.data[i]);
       let kind = {};
       Object.create(kind);
       kind.value = val.value;
@@ -107,14 +127,15 @@ class ApiCall {
    */
   async getUser(userId) {
     let url = `http://localhost:3000/user/${userId}`;
-    let fetch = await this.fetchData(url);
+    let fetch;
+(this.mockVersion === false) ? (fetch = await this.fetchData(url)) : (fetch= this.fetchData(parseInt(userId), USER_MAIN_DATA));
     if (fetch === "can not get user") {
       document.location.href = "http://localhost:3001/error";
     } else {
       let userName = [];
       let data = {};
       Object.create(data);
-      data.firstName = await fetch.data.userInfos.firstName;
+      (this.mockVersion === false) ? ( data.firstName = await fetch.data.userInfos.firstName ) : ( data.firstName = await fetch.userInfos.firstName );
       userName.push(data);
       return userName[0].firstName;
     }
@@ -128,28 +149,32 @@ class ApiCall {
    */
   async getCarbs(userId, number) {
     let url = `http://localhost:3000/user/${userId}`;
-    let fetch = await this.fetchData(url);
+    let fetch;
+    (this.mockVersion === false) ? (fetch = await this.fetchData(url)) : (fetch= this.fetchData(parseInt(userId), USER_MAIN_DATA));
     let Carbs = [];
     let data = {};
     Object.create(data);
-
+ 
+    var fetchCarbData;
+    (this.mockVersion === false) ? (fetchCarbData = fetch.data ) : (fetchCarbData = fetch);
     // Push the right data (proteins,lipids,etc...) in an array
 
     switch (number) {
+ 
       case "1":
-        data.carbs = await fetch.data.keyData.calorieCount;
+        data.carbs = await fetchCarbData.keyData.calorieCount;
         Carbs.push(data);
         break;
       case "2":
-        data.carbs = await fetch.data.keyData.proteinCount;
+        data.carbs = await fetchCarbData.keyData.proteinCount;
         Carbs.push(data);
         break;
       case "3":
-        data.carbs = await fetch.data.keyData.carbohydrateCount;
+        data.carbs = await fetchCarbData.keyData.carbohydrateCount;
         Carbs.push(data);
         break;
       case "4":
-        data.carbs = await fetch.data.keyData.lipidCount;
+        data.carbs = await fetchCarbData.keyData.lipidCount;
         Carbs.push(data);
         break;
       default:

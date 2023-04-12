@@ -10,18 +10,11 @@ import { useParams } from "react-router-dom";
 
 const ChartRadar = () => {
   const api = new ApiCall();
-//const api = new mockApiCall();
-/*  Uncomment the line above this comment and turn into comment the api
-variable to switch into mocked version */
   const [userData, setUserData] = useState(null);
   const { userId } = useParams();
 
   useEffect(() => {
     api.userPerformances(userId).then((data) => setUserData(data));
-   // let userData= api.userPerformances(userId)
-   // setUserData(userData)
-   /*  Uncomment the two lines above this comment and turn into comment the first line
-   of the useEffect() to switch into mocked version */
   }, []);
 
   return (
