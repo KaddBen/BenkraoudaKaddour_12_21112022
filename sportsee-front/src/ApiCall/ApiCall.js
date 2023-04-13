@@ -13,27 +13,21 @@ class ApiCall {
      * @returns {Object}
      */
 
-//Switch the variable below to true in order to use local data instead of fetching api's data
+    //Switch the variable below to true in order to use local data instead of fetching api's data
 
-this.mockVersion = false
+    this.mockVersion = false;
 
-    this.fetchData = (url) => {     
-      let fetchRequest = fetch(url)
-        .then((resp) => resp.json())
-        .then((data) => data);          
-        return fetchRequest; 
+    this.fetchData = (url) => {
+      let fetchRequest = fetch(url).then((resp) => resp.json()).then((data) => data);
+      return fetchRequest;
+    };
+
+    if (this.mockVersion === true) {
+      this.fetchData = (id, data) => {
+        const dataUser = data.find((object) => object.userId === id || object.id === id );
+        return dataUser;
+      };
     }
-
-  
-if (this.mockVersion === true ) {
-  this.fetchData = (id, data) => {
-    const dataUser = data.find(
-      (object) => object.userId === id || object.id === id
-    );
-    return dataUser;
-  }
-
-}
   }
 
   /**
@@ -44,10 +38,9 @@ if (this.mockVersion === true ) {
   async activityData(userId) {
     let url = `http://localhost:3000/user/${userId}/activity`;
     let fetch;
-   (this.mockVersion === false) ? (fetch = await this.fetchData(url)) : (fetch = this.fetchData(parseInt(userId), USER_ACTIVITY));
-   let fetchData; 
-  (this.mockVersion === false) ? (fetchData = fetch.data.sessions) : (fetchData = fetch.sessions);
-   console.log(fetchData)
+    let fetchData;
+    (this.mockVersion === false) ? (fetch = await this.fetchData(url)) : (fetch = this.fetchData(parseInt(userId), USER_ACTIVITY));
+    (this.mockVersion === false) ? (fetchData = fetch.data.sessions) : (fetchData = fetch.sessions);
     return fetchData;
   }
 
@@ -59,9 +52,9 @@ if (this.mockVersion === true ) {
   async averageSession(userId) {
     let url = `http://localhost:3000/user/${userId}/average-sessions`;
     let fetch;
-    (this.mockVersion === false) ? (fetch = await this.fetchData(url)) : (fetch = this.fetchData(parseInt(userId), USER_AVERAGE_SESSIONS));
     let fetchData;
-   (this.mockVersion === false) ? (fetchData = fetch.data.sessions) : (fetchData = fetch.sessions); 
+    (this.mockVersion === false) ? (fetch = await this.fetchData(url)) : (fetch = this.fetchData(parseInt(userId), USER_AVERAGE_SESSIONS));
+    (this.mockVersion === false) ? (fetchData = fetch.data.sessions) : (fetchData = fetch.sessions);
     return fetchData;
   }
 
@@ -76,12 +69,14 @@ if (this.mockVersion === true ) {
     let url = `http://localhost:3000/user/${userId}`;
     let score = [];
     let data = {};
-    Object.create(data);
     let fetchData;
-   (this.mockVersion === false) ? fetchData = await fetch(url)
-   .then((resp) => resp.json())
-   .then((data) => data) : (fetchData = this.fetchData(parseInt(userId), USER_MAIN_DATA));
-   (this.mockVersion === false) ? ( data.todayScore = (await fetchData.data.todayScore) * 100) : ( data.todayScore = (await fetchData.todayScore) * 100);
+    Object.create(data);
+    this.mockVersion === false 
+      ? (fetchData = await fetch(url).then((resp) => resp.json()).then((data) => data))
+      : (fetchData = this.fetchData(parseInt(userId), USER_MAIN_DATA));
+    this.mockVersion === false
+      ? (data.todayScore = (await fetchData.data.todayScore) * 100) 
+      : (data.todayScore = (await fetchData.todayScore) * 100);
     score.push(data);
     return score;
   }
@@ -96,27 +91,18 @@ if (this.mockVersion === true ) {
   async userPerformances(userId) {
     let url = `http://localhost:3000/user/${userId}/performance`;
     let fetch;
-    (this.mockVersion === false) ? (fetch = await this.fetchData(url)) : (fetch= this.fetchData(parseInt(userId), USER_PERFORMANCE));
-    let kindValue = [];
-    let kindValueObject = [];
     let performanceValue = [];
-    kindValue.push((fetch.data.kind || fetch.kind));
-    kindValueObject.push(Object.values(kindValue[0]));
-    console.log(kindValueObject)
-    console.log("object")
-    let dataLength;
-    (this.mockVersion === false) ? (dataLength = fetch.data.data.length) : (dataLength = fetch.data.length);
-    for (let i = 0; i < dataLength; i++) {
-      let val;
-      (this.mockVersion === false) ? (val = fetch.data.data[i]) : (val = fetch.data[i]);
+    let fetchDataLength;
+    (this.mockVersion === false) ? (fetch = await this.fetchData(url)) : (fetch = this.fetchData(parseInt(userId), USER_PERFORMANCE));
+    (this.mockVersion === false) ? (fetchDataLength = fetch.data.data.length) : (fetchDataLength = fetch.data.length);
+    for (let i = 0; i < fetchDataLength; i++) {
       let kind = {};
       Object.create(kind);
-      kind.value = val.value;
-      kind.kind = kindValueObject[0][i];
+    (this.mockVersion === false) ? (kind.value = fetch.data.data[i].value): (kind.value = fetch.data[i].value);
+      kind.kind = (fetch.data.kind || fetch.kind)[i + 1];
       performanceValue.push(kind);
     }
     performanceValue.reverse();
-
     return performanceValue;
   }
 
@@ -128,17 +114,12 @@ if (this.mockVersion === true ) {
   async getUser(userId) {
     let url = `http://localhost:3000/user/${userId}`;
     let fetch;
-(this.mockVersion === false) ? (fetch = await this.fetchData(url)) : (fetch= this.fetchData(parseInt(userId), USER_MAIN_DATA));
-    if (fetch === "can not get user") {
+    let userName;
+    (this.mockVersion) === false ? (fetch = await this.fetchData(url)) : (fetch = this.fetchData(parseInt(userId), USER_MAIN_DATA));
+    if (fetch === "can not get user")
       document.location.href = "http://localhost:3001/error";
-    } else {
-      let userName = [];
-      let data = {};
-      Object.create(data);
-      (this.mockVersion === false) ? ( data.firstName = await fetch.data.userInfos.firstName ) : ( data.firstName = await fetch.userInfos.firstName );
-      userName.push(data);
-      return userName[0].firstName;
-    }
+    (this.mockVersion) === false ? (userName = await fetch.data.userInfos.firstName) : (userName = await fetch.userInfos.firstName);
+    return userName;
   }
 
   /**
@@ -150,36 +131,29 @@ if (this.mockVersion === true ) {
   async getCarbs(userId, number) {
     let url = `http://localhost:3000/user/${userId}`;
     let fetch;
-    (this.mockVersion === false) ? (fetch = await this.fetchData(url)) : (fetch= this.fetchData(parseInt(userId), USER_MAIN_DATA));
-    let Carbs = [];
-    let data = {};
-    Object.create(data);
- 
+    let Carbs;
     var fetchCarbData;
-    (this.mockVersion === false) ? (fetchCarbData = fetch.data ) : (fetchCarbData = fetch);
-    // Push the right data (proteins,lipids,etc...) in an array
+    (this.mockVersion === false) ? (fetch = await this.fetchData(url)) : (fetch = this.fetchData(parseInt(userId), USER_MAIN_DATA));
+    (this.mockVersion === false) ? (fetchCarbData = fetch.data) : (fetchCarbData = fetch);
+    
+    // Fetch the right data (proteins,lipids,etc...) according to a input number
 
     switch (number) {
- 
       case "1":
-        data.carbs = await fetchCarbData.keyData.calorieCount;
-        Carbs.push(data);
+        Carbs = await fetchCarbData.keyData.calorieCount;
         break;
       case "2":
-        data.carbs = await fetchCarbData.keyData.proteinCount;
-        Carbs.push(data);
+        Carbs = await fetchCarbData.keyData.proteinCount;
         break;
       case "3":
-        data.carbs = await fetchCarbData.keyData.carbohydrateCount;
-        Carbs.push(data);
+        Carbs = await fetchCarbData.keyData.carbohydrateCount;
         break;
       case "4":
-        data.carbs = await fetchCarbData.keyData.lipidCount;
-        Carbs.push(data);
+        Carbs = await fetchCarbData.keyData.lipidCount;
         break;
       default:
     }
-    return Carbs[0].carbs;
+    return Carbs;
   }
 }
 
