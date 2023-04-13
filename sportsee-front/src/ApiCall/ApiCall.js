@@ -116,8 +116,7 @@ class ApiCall {
     let fetch;
     let userName;
     (this.mockVersion) === false ? (fetch = await this.fetchData(url)) : (fetch = this.fetchData(parseInt(userId), USER_MAIN_DATA));
-    if (fetch === "can not get user")
-      document.location.href = "http://localhost:3001/error";
+    if (fetch === "can not get user") document.location.href = "http://localhost:3001/error";
     (this.mockVersion) === false ? (userName = await fetch.data.userInfos.firstName) : (userName = await fetch.userInfos.firstName);
     return userName;
   }
@@ -125,7 +124,7 @@ class ApiCall {
   /**
    *
    * @param {String} userId
-   * @param {String} number number from 1 to 4 used arbitrarily to display the right data
+   * @param {String} number number from 0 to 3 used arbitrarily to display the right data
    * @returns {Object[]}
    */
   async getCarbs(userId, number) {
@@ -134,25 +133,25 @@ class ApiCall {
     let Carbs;
     var fetchCarbData;
     (this.mockVersion === false) ? (fetch = await this.fetchData(url)) : (fetch = this.fetchData(parseInt(userId), USER_MAIN_DATA));
-    (this.mockVersion === false) ? (fetchCarbData = fetch.data) : (fetchCarbData = fetch);
-    
+    (this.mockVersion === false) ? (fetchCarbData = fetch.data.keyData) : (fetchCarbData = fetch.keyData);
+ 
     // Fetch the right data (proteins,lipids,etc...) according to a input number
 
     switch (number) {
       case "1":
-        Carbs = await fetchCarbData.keyData.calorieCount;
+        Carbs = await fetchCarbData.calorieCount;
         break;
       case "2":
-        Carbs = await fetchCarbData.keyData.proteinCount;
+        Carbs = await fetchCarbData.proteinCount;
         break;
       case "3":
-        Carbs = await fetchCarbData.keyData.carbohydrateCount;
+        Carbs = await fetchCarbData.carbohydrateCount;
         break;
       case "4":
-        Carbs = await fetchCarbData.keyData.lipidCount;
+        Carbs = await fetchCarbData.lipidCount;
         break;
       default:
-    }
+    } 
     return Carbs;
   }
 }
