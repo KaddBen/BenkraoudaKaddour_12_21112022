@@ -23,7 +23,6 @@ const BarRadial = () => {
         Score
         <div className="info_radial">
           <div> {legend}%</div>
-          <br></br>
           <span>de votre<br></br>objectif</span>
         </div>
       </div>

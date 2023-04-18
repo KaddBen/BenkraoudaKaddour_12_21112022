@@ -107,14 +107,14 @@ const ChartBar = () => {
           dataKey="kilogram"
           yAxisId="kg"
           barSize={7}
-          fill="black"
+          fill="red"
           radius={[10, 10, 0, 0]}
         />
         <Bar
           dataKey="calories"
           yAxisId="cal"
           barSize={7}
-          fill="red"
+          fill="black"
           radius={[10, 10, 0, 0]}
         />
       </BarChart>
