@@ -59,9 +59,6 @@ class ApiCall {
   }
 
   /**
-   * Ajouter le parametre id dans la fonction et modifier
-   * la page ou le call api est réaliser
-   * fetch the score data of the user
    * @returns {Object[]}
    */
 
